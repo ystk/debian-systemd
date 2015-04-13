@@ -119,7 +119,7 @@ upgrade_fixes() {
 }
 
 update_hwdb() {
-  udevadm hwdb --update || true
+  udevadm hwdb --update --usr || true
 }
 
 # In udev-204, we ship systemd-udevd.service (upstream name), whereas previous
@@ -145,6 +145,9 @@ case "$1" in
     configure)
     # update/create hwdb before we (re)start udev
     update_hwdb
+
+    # Add new system group used by udev rules
+    addgroup --quiet --system input
 
     if [ -z "$2" ]; then # first install
       if ! chrooted && ! in_debootstrap; then
