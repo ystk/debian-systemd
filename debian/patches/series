@@ -233,3 +233,7 @@ cryptsetup-Implement-offset-and-skip-options.patch
 Revert-core-one-step-back-again-for-nspawn-we-actual.patch
 udev-increase-udev-event-timeout-to-180s.patch
 systemctl-Add-is-enabled-support-for-SysV-init-scripts.patch
+CVE-2018-1049.patch
+CVE-2018-15688.patch
+CVE-2018-15686.patch
+CVE-2018-15686-req.patch

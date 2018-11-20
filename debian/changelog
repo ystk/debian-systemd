@@ -1,3 +1,18 @@
+systemd (215-17+deb8u8) jessie-security; urgency=medium
+
+  * Non-maintainer upload by the LTS Security Team.
+  * CVE-2018-1049: fix race condition between .mount and .automount
+    unitspossibly leading to Denial of Service
+  * CVE-2018-15686: fix improper serialization on upgrade which can
+    influence systemd execution environment and lead to root privilege
+    escalation (Closes: #912005)
+  * CVE-2018-15688: fix buffer overflow vulnerability in the dhcp6 client
+    of systemd, which allows a malicious dhcp6 server to overwrite heap
+    memory in systemd-networkd, leading to denial of service or potential
+    code execution. (Closes: #912008)
+
+ -- Antoine Beaupré <anarcat@debian.org>  Tue, 13 Nov 2018 14:44:47 -0500
+
 systemd (215-17+deb8u7) stable; urgency=medium
 
   * bus: Fix bus_print_property() to use "int" for booleans.
