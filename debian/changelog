@@ -1,3 +1,14 @@
+systemd (215-17+deb8u11) jessie-security; urgency=high
+
+  * Non-maintainer upload by the LTS team.
+  * Fix CVE-2019-3815:
+    A memory leak was discovered in the backport of fixes for CVE-2018-16864.
+    Function dispatch_message_real() in journald-server.c does not free
+    allocated memory to store the `_CMDLINE=` entry. A local attacker may use
+    this flaw to make systemd-journald crash. (Closes: #924060)
+
+ -- Markus Koschany <apo@debian.org>  Wed, 13 Mar 2019 11:52:10 +0100
+
 systemd (215-17+deb8u10) jessie-security; urgency=medium
 
   * Non-maintainer upload by the LTS Team.
