@@ -1,3 +1,20 @@
+systemd (215-17+deb8u13) jessie-security; urgency=medium
+
+  * Regression fixes for CVE-2017-18078 in src/tmpfiles/tmpfiles.c:
+    - Add missing pair of curly braces.
+    - Return negative error code.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Thu, 25 Apr 2019 12:10:54 +0200
+
+systemd (215-17+deb8u12) jessie-security; urgency=medium
+
+  * Non-maintainer upload by the LTS team.
+  * CVE-2017-18078: tmpfiles: refuse to chown()/chmod() files which are
+    hardlinked, unless protected_hardlinks sysctl is on.
+  * CVE-2019-3842: pam-systemd: use secure_getenv() rather than getenv().
+
+ -- Mike Gabriel <sunweaver@debian.org>  Tue, 23 Apr 2019 10:55:22 +0200
+
 systemd (215-17+deb8u11) jessie-security; urgency=high
 
   * Non-maintainer upload by the LTS team.
