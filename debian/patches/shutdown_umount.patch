@@ -1,0 +1,68 @@
+From 9cbc4547702aac28466c497f720038b9e2dc510c Mon Sep 17 00:00:00 2001
+From: NeilBrown <neil@brown.name>
+Origin: https://github.com/systemd/systemd-stable/commit/9cbc4547702aac28466c497f720038b9e2dc510c
+Date: Thu, 31 Aug 2017 02:48:25 +1000
+Subject: [PATCH] shutdown: don't remount,ro network filesystems. (#6588)
+
+systemd-shutdown is run after the network is stopped,
+so remounting a network filesystem read-only can hang.
+A simple umount is the most useful thing that can
+be done for a network filesystem once the network is down.
+
+--- a/src/core/umount.c
++++ b/src/core/umount.c
+@@ -39,6 +39,7 @@
+ 
+ typedef struct MountPoint {
+         char *path;
++        char *type;
+         dev_t devnum;
+         LIST_FIELDS(struct MountPoint, mount_point);
+ } MountPoint;
+@@ -71,7 +72,7 @@
+                 return -errno;
+ 
+         for (i = 1;; i++) {
+-                _cleanup_free_ char *path = NULL;
++                _cleanup_free_ char *path = NULL, *type = NULL;
+                 char *p = NULL;
+                 MountPoint *m;
+                 int k;
+@@ -85,11 +86,11 @@
+                            "%*s"        /* (6) mount options */
+                            "%*[^-]"     /* (7) optional fields */
+                            "- "         /* (8) separator */
+-                           "%*s "       /* (9) file system type */
++                           "%ms "       /* (9) file system type */
+                            "%*s"        /* (10) mount source */
+                            "%*s"        /* (11) mount options 2 */
+                            "%*[^\n]",   /* some rubbish at the end */
+-                           &path);
++                           &path, &type);
+                 if (k != 1) {
+                         if (k == EOF)
+                                 break;
+@@ -119,6 +120,8 @@
+                 }
+ 
+                 m->path = p;
++                m->type = type;
++                type = NULL;
+                 LIST_PREPEND(mount_point, *head, m);
+         }
+ 
+@@ -360,8 +363,12 @@
+                 /* If we are in a container, don't attempt to
+                    read-only mount anything as that brings no real
+                    benefits, but might confuse the host, as we remount
+-                   the superblock here, not the bind mound. */
+-                if (detect_container(NULL) <= 0)  {
++                   the superblock here, not the bind mount.
++                   If the filesystem is a network fs, also skip the
++                   remount.  It brings no value (we cannot leave
++                   a "dirty fs") and could hang if the network is down.  */
++                if (detect_container(NULL) <= 0 &&
++                    !fstype_is_network(m->type)) {
+                         /* We always try to remount directories
+                          * read-only first, before we go on and umount
+                          * them.

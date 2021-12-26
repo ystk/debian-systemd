@@ -1,3 +1,10 @@
+systemd (215-17+deb8u14) jessie-security; urgency=high
+
+  [ Neil Williams ]
+  * shutdown: don't remount,ro network filesystems.
+
+ -- Utkarsh Gupta <utkarsh@debian.org>  Sun, 19 Dec 2021 21:02:26 +0530
+
 systemd (215-17+deb8u13) jessie-security; urgency=medium
 
   * Regression fixes for CVE-2017-18078 in src/tmpfiles/tmpfiles.c:
