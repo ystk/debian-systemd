@@ -1,4 +1,3 @@
-## v215-stable patches:
 man-add-link-to-Open-Group-Base-Specifications.patch
 sd-path-add-missing-header.patch
 architecture-remove-cris-from-uname-list.patch
@@ -95,8 +94,6 @@ timesyncd-wait-before-reconnecting-to-first-server.patch
 timesyncd-allow-two-missed-replies-before-reselectin.patch
 timesyncd-don-t-reset-polling-interval-when-reselect.patch
 backlight-Avoid-error-when-state-restore-is-disabled.patch
-
-## Cherry-picked patches:
 util-avoid-considering-dpkg-temporary-files-relevant.patch
 libudev-fix-symbol-version-for-udev_queue_flush-and-.patch
 build-don-t-install-busname-units-and-target-if-kdbu.patch
@@ -174,8 +171,6 @@ bus-fix-bus_print_property-to-use-int-for-booleans.patch
 service-allow-services-of-Type-oneshot-that-specify-no-Ex.patch
 core-if-the-start-command-vanishes-during-runtime-don-t-h.patch
 automount-if-an-automount-unit-is-masked-don-t-react-to-a.patch
-
-## Debian specific patches:
 Add-back-support-for-Debian-specific-config-files.patch
 Make-systemctl-enable-disable-call-update-rc.d-for-s.patch
 Also-redirect-to-update-rc.d-when-not-using-.service.patch
@@ -248,3 +243,6 @@ CVE-2017-18078.patch
 CVE-2019-3842-pre1.patch
 CVE-2019-3842.patch
 shutdown_umount.patch
+CVE-2022-3821.patch
+CVE-2023-26604.patch
+CVE-2023-26604_part2.patch
